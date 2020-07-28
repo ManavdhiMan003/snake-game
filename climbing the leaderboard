@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define loop(i,n) for(int i=0;i<n;i++)
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n,m,count=1,input;
+    cin>>n;
+    vector<long long int> scores;
+    int rank[n];
+    loop(i,n){
+        cin>>input;
+        scores.push_back(input);
+        if((i>=1)&&(scores[i]==scores[i-1])){
+            count--;
+        }
+        rank[i]=count;
+        count++;
+    }
+    cin>>m;
+    int temp;
+    long long int alice;
+    loop(i,m){
+        cin>>alice;
+            if(alice<scores[n-1]){
+                alice=rank[n-1]+1;
+                break;
+            }
+            else if(alice>=scores[0]){
+                alice=1;
+            }
+            else{
+                temp=upper_bound(scores.begin(),scores.end(),alice)-scores.begin();
+                alice=rank[temp-1];
+            }
+            cout<<alice<<"\n";
+    }
+    return 0;
+}
